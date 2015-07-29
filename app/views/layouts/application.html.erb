@@ -12,6 +12,14 @@
     <!-- Include header partial -->
     <%= render 'layouts/header' %>
     <div class="container">
+      <!-- Flash Messages -->
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>">
+          <%= message %>
+        </div>
+      <% end %>
+
+
         <%= yield %>
         <!-- Include footer partial -->
         <%= render 'layouts/footer' %>
