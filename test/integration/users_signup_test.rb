@@ -31,4 +31,29 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
   end
 
 
+  test 'valid signup information' do
+
+    # Go to sign up path
+    get signup_path
+
+    # Successfully loaded sign up page
+    assert_response :success
+
+    # Total count of User records in the database
+    before_count = User.count
+
+    # Simulate create new user, but with invalid data
+    post users_path, user: { name: "Test User", email: "test@me.com", password: "123456", password_confirmation: "123456" }
+
+    # Total count of User records in the database
+    after_count = User.count
+
+    # Test to see if the total user records is the same
+    assert_not_equal before_count, after_count
+
+    # This will return true if the new user WAS successfully saved
+
+  end
+
+
 end
