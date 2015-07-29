@@ -22,5 +22,12 @@ module SampleApp
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # JB - This is here to remove Rail's auto styling of form object that fail on submit
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
+
   end
+
+
+
 end
