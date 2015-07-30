@@ -2,6 +2,7 @@ require 'test_helper'
 
 class UserLoginTest < ActionDispatch::IntegrationTest
 
+
   test 'login with invalid information' do
 
     # Go to the login view
@@ -28,5 +29,6 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     # Returns true if flash is empty after navigating to a new page
 
   end
+
 
 end
