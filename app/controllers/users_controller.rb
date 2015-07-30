@@ -18,10 +18,6 @@ class UsersController < ApplicationController
       # Handle a successful save.
       flash[:success] = "Welcome to the Sample App!"
       redirect_to user_url(@user)
-
-
-
-
     else
       # Handle an unsuccessful save.
       # Redirect to the 'new' view
