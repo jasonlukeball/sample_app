@@ -50,11 +50,16 @@ class UserLoginTest < ActionDispatch::IntegrationTest
 
     # We should be redirected to the user's profile page
     assert_redirected_to @user
-
     follow_redirect!
-
     assert_template 'users/show'
-    # Returns true if flash is empty after navigating to a new page
+
+    # There should be no links to login now, as we are already logged in
+    assert_select "a[href=?]", login_path, count: 0
+
+    # There should be a log out link
+    assert_select "a[href=?]", logout_path
+
+    # Returns true if all assertiona are correct
 
   end
 
