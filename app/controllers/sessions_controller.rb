@@ -12,6 +12,11 @@ class SessionsController < ApplicationController
       # Log the user in & redirect to the user's show page
       # Logic for log_in comes from the SessionsHelper
       log_in user
+      if params[:session][:remember_me] == 1
+        remember user
+      else
+        forget user
+      end
       redirect_to user
     else
       # User does not exist or Authentication Failed
@@ -24,7 +29,7 @@ class SessionsController < ApplicationController
 
   def destroy
     # Logic for this is in the SessionsHelper
-    log_out
+    log_out if logged_in?
     redirect_to root_url
   end
 
