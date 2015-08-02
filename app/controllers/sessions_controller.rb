@@ -23,6 +23,9 @@ class SessionsController < ApplicationController
 
 
   def destroy
+    # Logic for this is in the SessionsHelper
+    log_out
+    redirect_to root_url
   end
 
 

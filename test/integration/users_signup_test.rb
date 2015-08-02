@@ -54,6 +54,9 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     # When the post succeeds we should have rendered the users#show view
     assert_template 'users/show'
 
+    # The user should be logged in is_logged_in?
+    assert is_logged_in?
+
     # This will return true if the new user WAS successfully saved
 
   end
