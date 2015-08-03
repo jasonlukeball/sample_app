@@ -4,7 +4,6 @@ class UserLoginTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:jason)
-
   end
 
 

@@ -18,7 +18,7 @@
                   <!-- PROFILE -->
                   <li><%= link_to "Profile", current_user %></li>
                   <!-- SETTINGS -->
-                  <li><%= link_to "Settings", '#' %></li>
+                  <li><%= link_to "Settings", edit_user_path(current_user) %></li>
                   <li class="divider"></li>
                   <!-- LOGOUT -->
                   <li><%= link_to "Sign out", logout_path, method: "delete" %> </li>
