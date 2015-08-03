@@ -7,6 +7,19 @@ class UsersControllerTest < ActionController::TestCase
     @other_user = users(:msh)
   end
 
+
+
+
+  test 'should redirect index when not logged in' do
+    get :index
+    assert_redirected_to login_url
+
+
+
+  end
+
+
+
   test 'should get new' do
     get :new
     assert_response :success
@@ -47,6 +60,9 @@ class UsersControllerTest < ActionController::TestCase
     patch :update, id: @user.id, user: {name: @user.name, email: @user.email}
     assert_redirected_to root_url
   end
+
+
+
 
 
 end
