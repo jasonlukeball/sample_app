@@ -11,13 +11,27 @@ class SessionsController < ApplicationController
       # User Exists & Authentication Successful
       # Log the user in & redirect to the user's show page
       # Logic for log_in comes from the SessionsHelper
-      log_in user
-      if params[:session][:remember_me] == 1
-        remember user
+
+      if user.activated?
+        # User Activated - log them in
+       log_in user
+       params[:session][:remember_me] == 1 ? remember(user) : forget(user)
+        redirect_back_or user
       else
-        forget user
+        # Not activated yet
+        message = "Account not activated! - "
+        message += "Check your email for the activation link"
+        flash[:warning] = message
+        redirect_to root_url
+
       end
-      redirect_back_or user
+
+
+
+
+
+
+
     else
       # User does not exist or Authentication Failed
       # Show error message

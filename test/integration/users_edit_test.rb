@@ -42,7 +42,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_redirected_to edit_user_path(@user)
 
     # Submit patch with VALID information
-    patch user_path(@user), user: { name: "John Smith", email: "john_smith@example.com", password: "", password_confirmation: "" }
+    patch user_path(@user), user: { name: "John Smith", email: "john_smith@example.com", password: "", password_confirmation: "" , admin: false, activated: false}
 
     # There should be a flash message "Profile updated!"
     assert_not flash.empty?

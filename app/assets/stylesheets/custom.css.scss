@@ -1,4 +1,7 @@
 @import "bootstrap-sprockets";
+
+
+
 @import "bootstrap";
 
 $light-grey: #777;
@@ -7,10 +10,12 @@ $white: #fff;
 $blackish: #222;
 
 
+
 /* universal */
 
 body {
   padding-top: 60px;
+  background-color: yellow;
 }
 
 section {
