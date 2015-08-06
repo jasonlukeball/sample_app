@@ -1,7 +1,10 @@
 class PasswordResetsController < ApplicationController
 
+  before_action :get_user, only: [:edit, :update]
+
 
   def new
+
   end
 
 
@@ -33,7 +36,20 @@ class PasswordResetsController < ApplicationController
 
 
   def edit
+
   end
+
+
+  def update
+
+  end
+
+
+  private
+    # Gets a user from the database based on their email address
+    def get_user
+      @user = User.find_by(email: params[:email])
+    end
 
 
 end
