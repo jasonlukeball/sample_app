@@ -14,8 +14,8 @@ class SessionsController < ApplicationController
 
       if user.activated?
         # User Activated - log them in
-       log_in user
-       params[:session][:remember_me] == 1 ? remember(user) : forget(user)
+        log_in user
+        params[:session][:remember_me] == 1 ? remember(user) : forget(user)
         redirect_back_or user
       else
         # Not activated yet
@@ -25,12 +25,6 @@ class SessionsController < ApplicationController
         redirect_to root_url
 
       end
-
-
-
-
-
-
 
     else
       # User does not exist or Authentication Failed

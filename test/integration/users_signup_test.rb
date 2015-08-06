@@ -2,6 +2,10 @@ require 'test_helper'
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
 
+  def setup
+    ActionMailer::Base.deliveries.clear
+  end
+
   test 'invalid signup information' do
 
     # Go to sign up path
@@ -35,29 +39,33 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     # Go to sign up path
     get signup_path
 
-    # Successfully loaded sign up page
-    assert_response :success
+    assert_difference 'User.count', 1 do
+      post users_path, user: { name:                    'Test User',
+                               email:                   'test@me.com',
+                               password:                '123456',
+                               password_confirmation:   '123456' }
+    end
 
-    # Total count of User records in the database
-    before_count = User.count
-
-    # Simulate create new user, but with invalid data
-    post_via_redirect users_path, user: { name: "Test User", email: "test@me.com", password: "123456", password_confirmation: "123456" }
-
-    # Total count of User records in the database
-    after_count = User.count
-
-    # Test to see if the total user records is the same
-    assert_not_equal before_count, after_count
-
-    # When the post succeeds we should have rendered the users#show view
-    # assert_template 'users/show'
-
-    # The user should be logged in is_logged_in?
-    # assert is_logged_in?
-
-    # This will return true if the new user WAS successfully saved
-
-  end
+    assert_equal 1, ActionMailer::Base.deliveries.size
+    user = assigns(:user)
+    assert_not user.activated?
+    # Try to login before activating
+    log_in_as(user)
+    # Should not be signed in
+    assert_not is_logged_in?
+    # Try the wrong activation token
+    get edit_account_activation_path('wrong token')
+    # Should not be signed in
+    assert_not is_logged_in?
+    # Login with valid token but invalid email address
+    get edit_account_activation_path(user.activation_token, email: 'wrong email')
+    # Should not be signed in
+    assert_not is_logged_in?
+    get edit_account_activation_path(user.activation_token, email: user.email)
+    assert user.reload.activated?
+    follow_redirect!
+    assert_template 'users/show'
+    assert is_logged_in?
+    end
 
 end

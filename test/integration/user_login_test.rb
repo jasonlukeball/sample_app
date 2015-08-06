@@ -6,8 +6,6 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     @user = users(:jason)
   end
 
-
-
   test 'login with invalid information' do
 
     # Go to the login view
@@ -45,6 +43,7 @@ class UserLoginTest < ActionDispatch::IntegrationTest
 
     # Simulate submitting the login form
     post login_path session: {email: @user.email, password: 'password'}
+
 
     # Should return true
     assert is_logged_in?
@@ -84,8 +83,5 @@ class UserLoginTest < ActionDispatch::IntegrationTest
   test 'authenticated? should return false for a user with nil digest' do
     assert_not @user.authenticated?(:remember,'')
   end
-
-
-
 
 end

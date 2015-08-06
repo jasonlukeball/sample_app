@@ -30,7 +30,8 @@ class UsersController < ApplicationController
       # Handle a successful save.
 
       # NEW BEHAVIOUR
-      UserMailer.account_activation(@user).deliver_now
+      # Send activation email
+      @user.send_activation_email
       flash[:info] = 'Please check your email to activate your account'
       redirect_to root_url
 

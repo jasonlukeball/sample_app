@@ -51,6 +51,17 @@ class User < ActiveRecord::Base
     BCrypt::Password.new(digest).is_password?(token)
   end
 
+  # Activates and account
+  def activate
+    self.update_attribute(:activated, true)
+    self.update_attribute(:activated_at, Time.zone.now)
+  end
+
+  # Sends activation email
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+
   private
 
     # Converts email to all lower case
@@ -63,5 +74,7 @@ class User < ActiveRecord::Base
       self.activation_token   = User.new_token
       self.activation_digest  = User.digest(activation_token)
     end
+
+
 
 end
