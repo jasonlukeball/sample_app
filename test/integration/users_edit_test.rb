@@ -7,7 +7,6 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     @user = users(:jason)
   end
 
-
   test 'edit user with INVALID information' do
 
     # Login as test user
@@ -29,7 +28,6 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert_template 'users/edit'
 
   end
-
 
   test 'edit user with VALID information with friendly forwarding' do
 

@@ -62,7 +62,9 @@ class User < ActiveRecord::Base
     UserMailer.account_activation(self).deliver_now
   end
 
+
   private
+
 
     # Converts email to all lower case
     def downcase_email
@@ -74,7 +76,5 @@ class User < ActiveRecord::Base
       self.activation_token   = User.new_token
       self.activation_digest  = User.digest(activation_token)
     end
-
-
 
 end

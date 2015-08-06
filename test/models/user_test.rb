@@ -11,20 +11,17 @@ class UserTest < ActiveSupport::TestCase
     assert @user.valid?
   end
 
-
   test 'name should be present' do
     @user.name = "      "
     assert_not @user.valid?
     # returns false if empty string for user.name & test fails
   end
 
-
   test 'email should be present' do
     @user.email = "      "
     assert_not @user.valid?
     # returns false if empty string for user.email & test fails
   end
-
 
   test 'the name should not be too long' do
     # Set user's name to a string 51 characters long
@@ -33,14 +30,12 @@ class UserTest < ActiveSupport::TestCase
     # Returns true, user's name > 50 characters is NOT VALID
   end
 
-
   test 'the email should not be too long' do
     # Set user's email to a string 256 characters long
     @user.email = "a" * 256
     assert_not @user.valid?
     # Returns true, user's email > 255 characters is NOT VALID
   end
-
 
   test 'email validation should accept valid addresses' do
     valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
@@ -51,7 +46,6 @@ class UserTest < ActiveSupport::TestCase
       end
   end
 
-
   test 'email validation should reject invalid addresses' do
     invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
                            foo@bar_baz.com foo@bar+baz.com]
@@ -61,7 +55,6 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-
   test 'email address should be unique' do
     duplicate_user = @user.dup
     duplicate_user.email = @user.email.upcase
@@ -69,11 +62,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not duplicate_user.valid?
   end
 
-
   test 'password should be minimum 6 characters' do
     @user.password = "a" * 5
     @user.password_confirmation = "a" * 5
     assert_not @user.valid?
   end
+
 
 end

@@ -17,7 +17,6 @@ module SessionsHelper
     user == current_user
   end
 
-
   # Returns the current logged-in user (if any).
   def current_user
 
@@ -34,7 +33,6 @@ module SessionsHelper
       end
     end
   end
-
 
   # Returns true if the user is logged in.
   def logged_in?
@@ -59,7 +57,6 @@ module SessionsHelper
   def store_location
     session[:forwarding_url] = request.url if request.get?
   end
-
 
   # Redirects to stored location (or to the default)
   def redirect_back_or(default)

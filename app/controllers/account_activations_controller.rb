@@ -21,4 +21,5 @@ class AccountActivationsController < ApplicationController
 
   end
 
+
 end

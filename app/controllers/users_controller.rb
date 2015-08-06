@@ -12,36 +12,23 @@ class UsersController < ApplicationController
     @users = User.paginate(page: params[:page])
   end
 
-
   def show
     @user = User.find(params[:id])
     # debugger
     end
 
-
   def new
     @user = User.new
   end
-
 
   def create
     @user = User.new(user_params)
     if @user.save
       # Handle a successful save.
-
-      # NEW BEHAVIOUR
       # Send activation email
       @user.send_activation_email
       flash[:info] = 'Please check your email to activate your account'
       redirect_to root_url
-
-      # OLD BEHAVIOUR
-      # log_in @user
-      # flash[:success] = "Welcome to the Sample App!"
-      # redirect_to user_url(@user)
-
-
-
     else
       # Handle an unsuccessful save.
       # Redirect to the 'new' view
@@ -49,11 +36,9 @@ class UsersController < ApplicationController
     end
   end
 
-
   def edit
     @user = User.find(params[:id])
   end
-
 
   def update
     @user = User.find(params[:id])
@@ -75,6 +60,7 @@ class UsersController < ApplicationController
 
 
   private
+
 
     def user_params
       # Require name, only permit the fields we explicitly accept
