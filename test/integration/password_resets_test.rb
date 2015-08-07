@@ -77,8 +77,8 @@ class PasswordResetsTest < ActionDispatch::IntegrationTest
       # Should still be on the edit password page
       assert_template 'password_resets/edit'
 
-      # Submitted with blank password and/or password confirmation
-      patch password_reset_path(user.reset_token), email:  user.email, user: { password: '', password_confirmation: '' }
+      # Submitted with blank password
+      patch password_reset_path(user.reset_token), email:  user.email, user: { password: '', password_confirmation: 'password' }
       # Should see a flash message that password cannot be blank or is invalid
       assert_not flash.empty?
       # Should still be on the edit password page

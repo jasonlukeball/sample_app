@@ -2,6 +2,7 @@ class PasswordResetsController < ApplicationController
 
   before_action :get_user, only: [:edit, :update]
   before_action :valid_user, only: [:edit, :update]
+  before_action :check_expiration, only: [:edit, :update]
 
 
   def new
@@ -40,12 +41,8 @@ class PasswordResetsController < ApplicationController
 
   def update
 
-    if @user.password_reset_expired?
-      # PASSWORD RESET EXPIRED
-      flash[:danger] = 'Password reset has expired'
-      redirect_to new_password_reset_url
-    elsif ( params[:user][:password].blank? && params[:user][:password_confirmation].blank? )
-      # PASSWORD / PASSWORD CONFIRMATION IS BLANK
+    if password_blank?
+      # PASSWORD IS BLANK
       flash.now[:danger] = 'Password cannot be blank'
       render 'edit'
     elsif @user.update_attributes(user_params)
@@ -77,9 +74,23 @@ class PasswordResetsController < ApplicationController
       end
     end
 
+    # Check expiration of reset token
+    def check_expiration
+      if @user.password_reset_expired?
+        # PASSWORD RESET EXPIRED
+        flash[:danger] = 'Password reset has expired'
+        redirect_to new_password_reset_url
+      end
+    end
+
     def user_params
       # Require name, only permit the fields we explicitly accept
       params.require(:user).permit(:password,:password_confirmation)
+    end
+
+    # Returns true if password is blank
+    def password_blank?
+      params[:user][:password].blank?
     end
 
 
