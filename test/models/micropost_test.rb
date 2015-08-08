@@ -5,9 +5,8 @@ class MicropostTest < ActiveSupport::TestCase
 
   def setup
     @user = users(:jason)
-    @micropost = Micropost.new(user_id: @user.id, content: 'Hello Rails!')
+    @micropost = @user.microposts.build(content: 'Hello Rails!')
   end
-
 
   test 'should be valid' do
     assert @micropost.valid?
@@ -20,7 +19,6 @@ class MicropostTest < ActiveSupport::TestCase
     assert_not @micropost.valid?
   end
 
-
   test 'content should be present' do
     # Set user_id to nil
     @micropost.content = nil
@@ -28,11 +26,14 @@ class MicropostTest < ActiveSupport::TestCase
     assert_not @micropost.valid?
   end
 
-
   test 'content should be <= 140 characters' do
     # Set the micropost content to 141 characters
     @micropost.content = 'a' * 141
     assert_not @micropost.valid?
+  end
+
+  test 'micropost order should be most recent first' do
+    assert_equal Micropost.first, microposts(:most_recent)
   end
 
 

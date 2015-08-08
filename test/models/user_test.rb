@@ -68,5 +68,17 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test 'associated microposts should be destroyed when deleting user' do
+    # Save @user to the database
+    @user.save
+    # Create an associated micropost for @user
+    @user.microposts.create!(content: 'Yay, I\'m a micropost')
+    # Micropost count should be one less after we delete the user
+    assert_difference 'Micropost.count', -1 do
+      @user.destroy
+    end
+
+
+  end
 
 end
