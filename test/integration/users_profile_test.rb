@@ -6,7 +6,6 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
     @user = users(:jason)
   end
 
-
   test 'profile displays' do
 
     # Go to user profile

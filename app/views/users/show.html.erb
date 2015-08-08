@@ -6,6 +6,7 @@
       <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
+        <p>Joined <%= @user.created_at.strftime("%b %d, %Y") %></p>
       </h1>
     </section>
   </aside>

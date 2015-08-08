@@ -1,0 +1,11 @@
+<%= form_for(@micropost, html: {miltipart: true}) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <div class="field">
+      <%= f.text_area :content, placeholder: 'What\'s Happening?'%>
+    </div>
+    <!-- Submit button routes to the microposts#create action by convention -->
+    <%= f.submit "Post", class: "btn btn-primary" %>
+    <span class="picture">
+      <%= f.file_field :picture %>
+    </span>
+<% end %>

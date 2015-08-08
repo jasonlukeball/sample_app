@@ -26,3 +26,29 @@ micropost_<%= n %>:
   created_at: <%= 42.days.ago %>
   user: jason
 <% end %>
+
+
+msh_post1:
+  content: 'no'
+  created_at: <%= 2.years.ago %>
+  user: msh
+
+msh_post1:
+  content: 'hello bunny'
+  created_at: <%= 2.years.ago %>
+  user: msh
+
+fiona_post1:
+  content: 'yay'
+  created_at: <%= 2.years.ago %>
+  user: fiona
+
+fiona_post2:
+  content: 'yay 2'
+  created_at: <%= 2.years.ago %>
+  user: fiona
+
+
+
+
+
