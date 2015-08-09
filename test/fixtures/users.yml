@@ -14,7 +14,7 @@ msh:
   activated: true
   activated_at: <%= Time.zone.now %>
 
-Fiona:
+fiona:
   name: Fiona
   email: fiona@example.com
   password_digest: <%= User.digest('password') %>
