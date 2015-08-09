@@ -6,7 +6,6 @@ class UserTest < ActiveSupport::TestCase
     @user = User.new(name: "Example Name", email: "example@example.com", password: "foobar", password_confirmation: "foobar")
   end
 
-
   test 'should be valid' do
     assert @user.valid?
   end
@@ -80,5 +79,33 @@ class UserTest < ActiveSupport::TestCase
 
 
   end
+
+  test 'should follow and unfollow a user' do
+
+
+    # Setup some users
+    jason = users(:jason)
+    msh   = users(:msh)
+
+    # Should not be following
+    assert_not jason.following?(msh)
+
+    # Follow a user
+    jason.follow(msh)
+    # Should now be following
+    assert jason.following?(msh)
+
+    # Msh's followers should include jason
+    assert msh.followers.include?(jason)
+
+    # Unfollow a user
+    jason.unfollow(msh)
+    # Should not be following
+    assert_not jason.following?(msh)
+
+
+
+  end
+
 
 end
