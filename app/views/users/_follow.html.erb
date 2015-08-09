@@ -1,0 +1,10 @@
+<%= form_for(current_user.active_relationships.build) do |f| %>
+
+    <div><%= hidden_field_tag :followed_id, @user.id %></div>
+
+    <!-- posts to the relationships#create action -->
+    <%= f.submit "Follow", class: "btn btn-primary" %>
+
+<% end %>
+
+
