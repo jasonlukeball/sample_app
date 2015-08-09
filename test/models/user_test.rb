@@ -107,5 +107,36 @@ class UserTest < ActiveSupport::TestCase
 
   end
 
+  test 'feed should have the right posts' do
+    jason = users(:jason)
+    fiona = users(:fiona)
+    roz   = users(:roz)
+    msh   = users(:msh)
+
+    # Posts from followed user
+    # Fiona's posts should appear in Jason's feed
+    fiona.microposts.each do |post_following|
+      assert jason.feed.include?(post_following)
+    end
+
+    # Posts from self
+    jason.microposts.each do |post_self|
+      assert jason.feed.include?(post_self)
+    end
+
+    # Posts from unfollowed user
+    msh.microposts.each do |post_unfollowed|
+      assert_not jason.feed.include?(post_unfollowed)
+    end
+
+
+
+
+
+
+
+
+  end
+
 
 end

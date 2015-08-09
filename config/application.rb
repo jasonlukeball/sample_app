@@ -7,6 +7,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 module SampleApp
+
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -26,8 +27,8 @@ module SampleApp
     # JB - This is here to remove Rail's auto styling of form object that fail on submit
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
 
+    config.action_view.embed_authenticity_token_in_remote_forms = true
+
   end
-
-
 
 end

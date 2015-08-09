@@ -48,6 +48,16 @@ fiona_post2:
   created_at: <%= 2.years.ago %>
   user: fiona
 
+roz_post1:
+  content: 'I want things'
+  created_at: <%= 2.years.ago %>
+  user: roz
+
+roz_post2:
+  content: 'i have a new car'
+  created_at: <%= 2.years.ago %>
+  user: roz
+
 
 
 

@@ -5,9 +5,9 @@ class FollowingTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:jason)
+    @other = users(:msh)
     log_in_as(@user)
   end
-
 
   test 'following page' do
 
@@ -25,7 +25,6 @@ class FollowingTest < ActionDispatch::IntegrationTest
 
   end
 
-
   test 'followers page' do
 
     get followers_user_path(@user)
@@ -42,6 +41,34 @@ class FollowingTest < ActionDispatch::IntegrationTest
     # Should see the followers count
     assert_match @user.followers.count.to_s, response.body
 
+  end
+
+  test 'should follow a user the standard way' do
+    assert_difference '@user.following.count', 1 do
+      post relationships_path, followed_id: @other.id
+    end
+  end
+
+  test 'should follow a user with Ajax' do
+    assert_difference '@user.following.count', 1 do
+      xhr :post, relationships_path, followed_id: @other.id
+    end
+  end
+
+  test 'should unfollow a user the standard way' do
+    @user.follow(@other)
+    relationship = @user.active_relationships.find_by(followed_id: @other.id)
+    assert_difference '@user.following.count', -1 do
+      delete relationship_path(relationship), followed_id: @other.id
+    end
+  end
+
+  test 'should unfollow a user using Ajax' do
+    @user.follow(@other)
+    relationship = @user.active_relationships.find_by(followed_id: @other.id)
+    assert_difference '@user.following.count', -1 do
+      xhr :delete, relationship_path(relationship)
+    end
   end
 
 
